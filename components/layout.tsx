@@ -1,29 +1,39 @@
-import { Fragment, ReactNode, useEffect, useState } from 'react';
+import { Fragment, ReactNode, useEffect } from 'react';
 import Head from 'next/head';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
+import { useAtom } from 'jotai';
+import { modalAtom } from 'state/modal';
+import { PROJECT_NAME } from 'state/constants';
+import { IMeta } from 'types/meta';
 
 type Props = {
     children?: ReactNode;
+    meta: IMeta[];
 };
 
-function Layout({ children }: Props): JSX.Element {
-    // TODO Change this. Use some kind of global state like Jotai.
-    const [isModalOpen, setModal] = useState(false);
+function Layout({ children, meta = [] }: Props): JSX.Element {
+    const [isModalOpen, setModal] = useAtom(modalAtom);
     const router = useRouter();
 
     useEffect(() => {
-        router.events.on('routeChangeStart', () => {
+        const handler = () => {
             setModal(false);
-        });
+        };
+
+        router.events.on('routeChangeComplete', handler);
+
+        return () => {
+            router.events.off('routeChangeComplete', handler);
+        };
     }, []);
 
-    const PROJECT = 'UNKNOWN';
+    const { title = PROJECT_NAME, description = '', url = '/' } = meta?.find((info) => info.url === router.pathname) ?? {};
 
     return (
         <Fragment>
             <Head>
-                <title>{PROJECT}</title>
+                <title>{PROJECT_NAME}</title>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                 <meta
@@ -33,26 +43,26 @@ function Layout({ children }: Props): JSX.Element {
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="format-detection" content="telephone=no" />
-                {/* <link rel="canonical" href="https://eco-bot.net" /> */}
+                {/* <link rel="canonical" href="__MAIN_URL__" /> */}
                 <meta name="robots" content="index, follow" />
                 {/* <meta
                     name="description"
-                    content="Eco-Bot.Net: Exposing Corporate Greenwashing & Climate Change Disinformation on Social Media During COP26"
+                    content="__DESCRIPTION__"
                 />
                 <meta property="og:title" content="Eco-Bot.Net" />
                 <meta
                     property="og:description"
-                    content="Eco-Bot.Net: Exposing Corporate Greenwashing & Climate Change Disinformation on Social Media During COP26"
+                    content="__DESCRIPTION__"
                 /> */}
-                {/* <meta property="og:image" content="https://eco-bot.net/images/eco-bot.png" />
+                {/* <meta property="og:image" content="__IMAGE_LINK__" />
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
-                <meta property="og:image:alt" content="Eco-Bot.Net" />
+                <meta property="og:image:alt" content="__IMAGE_DESC__" />
 
                 <meta property="og:locale" content="en_GB" />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://eco-bot.net" /> */}
+                <meta property="og:url" content="__MAIN_URL__" /> */}
 
                 {/* <meta name="twitter:card" content="summary_large_image" />
 

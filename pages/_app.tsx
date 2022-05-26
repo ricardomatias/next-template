@@ -1,11 +1,11 @@
 import type { AppProps } from 'next/app';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import Layout from '../components/layout';
 import { IsMobileProvider } from 'hooks/useIsMobile';
 import '../styles/globals.css';
 
-function Ecobot({ Component, pageProps = {} }: AppProps) {
-    useLayoutEffect(() => {
+function App({ Component, pageProps = {} }: AppProps) {
+    useEffect(() => {
         console.log('%c DEVELOPMENT BY RICARDOMATIAS.NET', 'background: #000; color: #0f0');
     }, []);
 
@@ -18,4 +18,4 @@ function Ecobot({ Component, pageProps = {} }: AppProps) {
     );
 }
 
-export default Ecobot;
+export default App;
