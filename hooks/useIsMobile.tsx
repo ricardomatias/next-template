@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import useMedia from 'use-media';
+import { useMedia } from './useMedia';
 
 interface Props {
     children: React.ReactNode;
