@@ -1,13 +1,31 @@
 @tailwind base;
+
 @tailwind components;
+
 @tailwind utilities;
 
 :root {
-  --color: 0, 0, 0;
-  --background: 255, 255, 255;
+    --color: 0, 0, 0;
+    --background: 255, 255, 255;
 }
 
 body {
-  color: rgb(var(--color));
-  background: rgb(var(--background));
+    color: rgb(var(--color));
+    background: rgb(var(--background));
+}
+
+@layer utilities {
+    .absolute-centered {
+        @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
 }

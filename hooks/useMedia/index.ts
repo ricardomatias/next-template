@@ -62,12 +62,12 @@ const createUseMedia =
                 setState(Boolean(mediaQueryList.matches));
             };
 
-            mediaQueryList.addListener(onChange);
+            mediaQueryList.onchange = onChange;
             setState(mediaQueryList.matches);
 
             return () => {
                 mounted = false;
-                mediaQueryList.removeListener(onChange);
+                mediaQueryList.removeEventListener('change', onChange);
             };
         }, [query]);
 
@@ -76,5 +76,3 @@ const createUseMedia =
 
 export const useMedia = createUseMedia(useEffect);
 export const useMediaLayout = createUseMedia(useLayoutEffect);
-
-export default { useMedia, useMediaLayout };
