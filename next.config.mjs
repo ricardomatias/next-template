@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const config = {
     reactStrictMode: true,
     images: {
         domains: ['localhost'],
     },
 };
+
+export default config;

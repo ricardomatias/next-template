@@ -13,10 +13,8 @@ interface Props {
  *   <p>Thinking with portals</p>
  * </Portal>
  */
-const Portal = ({ children }: Props): any => {
+export const Portal = ({ children }: Props): any => {
     const { isBrowser } = useSSR();
 
     return children && isBrowser ? createPortal(children, document.getElementById('modal') ?? document.body) : null;
 };
-
-export default Portal;

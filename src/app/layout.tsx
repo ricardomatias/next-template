@@ -4,6 +4,7 @@ import { Archivo_Narrow } from 'next/font/google';
 import Header from 'components/shared/Header';
 import Footer from 'components/shared/Footer';
 import { Credit } from 'components/shared/Credit';
+import { Providers } from 'modules/providers';
 
 const archivoNarrow = Archivo_Narrow({ subsets: ['latin'] });
 
@@ -31,10 +32,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en">
             <body className={archivoNarrow.className}>
-                <Header />
-                <main>{children}</main>
-                <Footer />
-                <Credit />
+                <Providers>
+                    <Header />
+                    <main>{children}</main>
+                    <Footer />
+                    <Credit />
+                </Providers>
             </body>
         </html>
     );
